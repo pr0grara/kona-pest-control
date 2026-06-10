@@ -1,0 +1,104 @@
+---
+/**
+ * QuoteForm.astro — primary lead-capture form.
+ * Backend is chosen in site.ts:
+ *   - Web3Forms: formEndpoint = api.web3forms.com/submit + formAccessKey
+ *   - Formspree:  formEndpoint = formspree.io/f/xxxx (no key)
+ *   - Worker/custom: any endpoint accepting multipart/form-data POST → 2xx
+ *   - Call-only:  formEndpoint = "" → submit disabled, shows "call us instead"
+ */
+import { SITE, tel } from '@config/site';
+
+interface Props {
+  source?: string;
+  heading?: string;
+  sub?: string;
+}
+const {
+  source = 'website',
+  heading = 'Get Your FREE Estimate!',
+  sub = 'Tell us what’s bugging you and we’ll call you back — usually same day!',
+} = Astro.props;
+
+const subject = `New lead — ${SITE.company} (${source})`;
+---
+
+<div class="card quote-form" id="quote">
+  <h3>{heading}</h3>
+  <p class="muted">{sub}</p>
+
+  <form id="lead-form" novalidate>
+    {SITE.formAccessKey ? <input type="hidden" name="access_key" value={SITE.formAccessKey} /> : null}
+    <input type="hidden" name="source" value={source} />
+    <input type="hidden" name="subject" value={subject} />
+    <input type="hidden" name="from_name" value={SITE.company} />
+
+    <!-- honeypot: real people leave this empty -->
+    <div class="hp" aria-hidden="true">
+      <label>Company Website<input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label>
+    </div>
+
+    <div class="field">
+      <label for="lf-name">Name <span class="req">*</span></label>
+      <input id="lf-name" name="name" type="text" autocomplete="name" required />
+    </div>
+    <div class="field">
+      <label for="lf-phone">Phone</label>
+      <input id="lf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" />
+    </div>
+    <div class="field">
+      <label for="lf-email">Email <span class="req">*</span></label>
+      <input id="lf-email" name="email" type="email" autocomplete="email" required />
+    </div>
+    <div class="field">
+      <label for="lf-message">What pest problem are you having?</label>
+      <textarea id="lf-message" name="message" rows="4" placeholder="Ants, roaches, centipedes, coqui frogs, termites…"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg btn-block" id="lf-submit">
+      Send My Request
+    </button>
+    <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+
+    <p class="muted or-call">
+      Prefer to talk now? Call <a href={tel()}>{SITE.phoneDisplay}</a>.
+    </p>
+  </form>
+</div>
+
+<style>
+  /* Loud "FREE ESTIMATE" box — yellow with a red dashed border, era-style */
+  .quote-form {
+    background: #fff6b0 !important;
+    border: 3px dashed #cc0000 !important;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25) !important;
+  }
+  .quote-form h3 {
+    margin-bottom: 4px;
+    color: #b22222;
+    font-size: 18px;
+    text-align: center;
+  }
+  .callout {
+    background: #ffffff;
+    border: 2px solid #cc0000;
+    color: #b22222;
+    padding: 10px 12px;
+    font-weight: bold;
+  }
+  .or-call {
+    margin: 12px 0 0;
+    text-align: center;
+  }
+</style>
+
+<script>
+  // The form is live and interactive, but submission is intentionally a NO-OP for now —
+  // no backend is wired. We only prevent the default page reload so the button "does nothing".
+  // To go live later: set SITE.formEndpoint and restore a fetch() handler here
+  // (validation + honeypot + POST). See git history of this file for the full version.
+  const form = document.getElementById('lead-form');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+  });
+</script>

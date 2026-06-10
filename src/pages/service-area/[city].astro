@@ -1,0 +1,101 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServiceCards from '@components/ServiceCards.astro';
+import QuoteForm from '@components/QuoteForm.astro';
+import FaqSection from '@components/FaqSection.astro';
+import Neighborhoods from '@components/Neighborhoods.astro';
+import CommonIssues from '@components/CommonIssues.astro';
+import NearbyCities from '@components/NearbyCities.astro';
+import FinalCta from '@components/FinalCta.astro';
+import { CITIES, nearbyCities, type City } from '@config/cities';
+import { SITE, tel } from '@config/site';
+import { getHeroUrl } from '../../lib/images';
+import { cityUrl } from '../../lib/urls';
+import { breadcrumb, faqPage } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return CITIES.map((c) => ({ params: { city: c.slug }, props: { city: c } }));
+}
+
+interface Props {
+  city: City;
+}
+const { city } = Astro.props;
+
+const heroUrl = await getHeroUrl(city.heroImage);
+const where = city.state ? `${city.name}, ${city.state}` : city.name;
+const near = nearbyCities(city);
+
+const title = `Pest Control in ${where} | ${SITE.company}`;
+const description = `Pest control in ${where} — ants, roaches, centipedes, coqui frogs & termites. Licensed & insured. Call ${SITE.phoneDisplay} for a FREE estimate.`;
+
+const jsonLd = [
+  breadcrumb([
+    { name: 'Home', url: '/' },
+    { name: where, url: cityUrl(city) },
+  ]),
+];
+const faqLd = faqPage(city.faqs);
+if (faqLd) jsonLd.push(faqLd);
+---
+
+<BaseLayout title={title} description={description} heroPreload={heroUrl} jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="hero-single" style={`background-image:url('${heroUrl}')`}>
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span>/</span>Service Area<span>/</span>{city.name}
+      </nav>
+      <h1>Pest Control in {where}</h1>
+      <p>
+        Local, licensed pest control for {city.name} — ants, roaches, centipedes, coqui frogs,
+        termites and more. FREE estimates and friendly local service!
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-call btn-lg" href={tel()}>☎ Call {SITE.phoneDisplay}</a>
+        <a class="btn btn-outline btn-lg" href="#quote">Get a FREE Estimate</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- City intro + form -->
+  <section class="section">
+    <div class="container split">
+      <div class="prose">
+        <h2>Your {city.name} Pest Control Specialists</h2>
+        <p class="lead">{city.intro}</p>
+
+        {
+          city.landmarks.length > 0 && (
+            <>
+              <h3>Around {city.name}</h3>
+              <ul class="chips">
+                {city.landmarks.map((l) => <li>{l}</li>)}
+              </ul>
+            </>
+          )
+        }
+      </div>
+      <QuoteForm
+        source={`city-${city.slug}`}
+        heading={`FREE Estimate in ${city.name}`}
+        sub={`Tell us what's bugging you — we'll call you back same day!`}
+      />
+    </div>
+  </section>
+
+  <!-- All matrix services, linking to combo pages for this city -->
+  <ServiceCards city={city} />
+
+  <Neighborhoods cityName={city.name} neighborhoods={city.neighborhoods} />
+
+  <CommonIssues cityName={city.name} issues={city.issues} />
+
+  <NearbyCities cities={near} cityName={city.name} />
+
+  <div class="section-soft">
+    <FaqSection faqs={city.faqs} title={`Pest Control in ${city.name} — FAQs`} />
+  </div>
+
+  <FinalCta heading={`Bugs Bugging You in ${city.name}?`} />
+</BaseLayout>

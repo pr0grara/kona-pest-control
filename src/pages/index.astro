@@ -1,0 +1,84 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServiceCards from '@components/ServiceCards.astro';
+import ServiceAreaMap from '@components/ServiceAreaMap.astro';
+import Reviews from '@components/Reviews.astro';
+import FinalCta from '@components/FinalCta.astro';
+import QuoteForm from '@components/QuoteForm.astro';
+import CityLinks from '@components/CityLinks.astro';
+import { SITE, tel } from '@config/site';
+import { getHeroUrl } from '../lib/images';
+
+const heroUrl = await getHeroUrl();
+
+const title = `${SITE.company} | Pest Control in ${SITE.region} (Big Island)`;
+const description = `Friendly, local pest control on the Big Island. Ants, little fire ants, cockroaches, coqui frogs & termites in ${SITE.region}. Call ${SITE.phoneDisplay} for a FREE estimate!`;
+---
+
+<BaseLayout title={title} description={description} heroPreload={heroUrl}>
+  <!-- Hero -->
+  <section class="hero" style={`background-image:url('${heroUrl}')`}>
+    <div class="container">
+      <h1>Big Island Bugs? We'll Get 'Em! Pest Control in {SITE.region}</h1>
+      <p>
+        Centipedes, B-52 roaches, little fire ants, coqui frogs, termites — the Big Island has 'em
+        all, and they never take a winter off. We knock 'em out — fast. Local, licensed &amp;
+        insured, and we answer the phone!
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-call btn-lg" href={tel()}>☎ Call {SITE.phoneDisplay}</a>
+        <a class="btn btn-outline btn-lg" href="#quote">Get a FREE Estimate</a>
+      </div>
+      <div class="trust-row">
+        <span>✔ Licensed &amp; Insured</span>
+        <span>✔ FREE Estimates</span>
+        <span>✔ Free Re-Treats</span>
+        <span>✔ Serving All of West Hawaii</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro + quote form -->
+  <section class="section">
+    <div class="container split">
+      <div class="prose">
+        <h2>The Bug Busters West Hawaii Trusts</h2>
+        <p>
+          Living on the Big Island means sharing it with venomous centipedes, flying cockroaches,
+          stinging little fire ants, screaming coqui frogs, and wood-eating termites — and our warm,
+          wet climate means they never get a break. You don't need a national chain reading off a
+          script. You need local folks who know where these pests hide on a Kona lot.
+        </p>
+        <p>
+          {SITE.company} treats the inside, the perimeter, and the yard, and we come back if the bugs
+          do — free re-treats between scheduled visits. From a one-time knockdown to year-round
+          recurring protection, we've got you covered from the Kona coast to upcountry Waimea.
+        </p>
+        <ul class="checklist">
+          <li>Centipede, spider, ant &amp; cockroach control</li>
+          <li>Little fire ant baiting (the right Hawaii way)</li>
+          <li>Coqui frog treatment to get your nights back</li>
+          <li>Termite inspection &amp; treatment (drywood &amp; Formosan)</li>
+        </ul>
+      </div>
+      <QuoteForm source="home-hero" />
+    </div>
+  </section>
+
+  <!-- Services -->
+  <ServiceCards
+    sub="From flying roaches to little fire ants and coqui frogs — here's what we knock out for Big Island homes."
+  />
+
+  <!-- Service area -->
+  <ServiceAreaMap />
+
+  <!-- City links -->
+  <CityLinks sub={`Local, specific service for every town we cover across ${SITE.region}.`} />
+
+  <!-- Reviews -->
+  <Reviews />
+
+  <!-- Final CTA -->
+  <FinalCta />
+</BaseLayout>

@@ -1,0 +1,67 @@
+---
+/**
+ * FinalCta.astro — bottom call/quote band with a "FREE ESTIMATE!" starburst.
+ */
+import { SITE, tel } from '@config/site';
+
+interface Props {
+  heading?: string;
+  sub?: string;
+}
+const {
+  heading = `Got Bugs in ${SITE.region}? Don't Wait — Call the Bug Busters!`,
+  sub = 'Pick up the phone for a FREE estimate and friendly local service. We answer the phone and we show up!',
+} = Astro.props;
+---
+
+<section class="final-cta">
+  <div class="container cta-inner">
+    <div class="starburst">FREE<br />ESTIMATE!</div>
+    <div class="cta-text">
+      <h2>{heading}</h2>
+      <p>{sub}</p>
+      <div class="cta-actions">
+        <a class="btn btn-call btn-lg" href={tel()}>☎ Call {SITE.phoneDisplay}</a>
+        <a class="btn btn-outline btn-lg" href="#quote">Send Us a Message</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .final-cta {
+    background: #b22222;
+    background-image: linear-gradient(to bottom, #d23b3b, #8e1414);
+    color: #ffffff;
+    border-top: 3px solid #fff800;
+    border-bottom: 3px solid #fff800;
+    padding: 26px 0;
+    text-align: center;
+  }
+  .cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+  .final-cta h2 {
+    color: #fff800;
+    border-bottom: none;
+    text-shadow: 2px 2px 0 #5a0000;
+    margin-bottom: 6px;
+  }
+  .final-cta p {
+    color: #ffffff;
+    max-width: 52ch;
+    margin: 0 auto 14px;
+    font-size: 14px;
+    text-shadow: 1px 1px 0 #5a0000;
+  }
+  .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .final-cta .starburst { flex: none; font-size: 14px; }
+
+  @media (max-width: 560px) {
+    .final-cta .starburst { display: none; }
+  }
+</style>

@@ -1,0 +1,69 @@
+---
+/**
+ * Reviews.astro — testimonials from an internal array.
+ * Replace these with real, verifiable reviews before launch (keep them honest —
+ * fake review counts/awards are a "scammy" signal per SPEC §2).
+ */
+import { SITE } from '@config/site';
+
+interface Review {
+  quote: string;
+  name: string;
+  town: string;
+}
+
+const REVIEWS: Review[] = [
+  {
+    quote:
+      "We had B-52 roaches flying around the lanai every night and centipedes in the bathroom. After their treatment and the quarterly service, it's a totally different house. Friendly local guys who actually show up.",
+    name: 'Dave R.',
+    town: 'Kailua-Kona, HI',
+  },
+  {
+    quote:
+      "Little fire ants had taken over our coffee lot and were stinging the dogs. They were straight with us that it takes several baitings — and they stuck with it. Way fewer ants now and the dogs are happy.",
+    name: 'Karen M.',
+    town: 'Holualoa, HI',
+  },
+  {
+    quote:
+      "The coqui frogs were so loud we couldn't sleep. They treated the vegetation with citric acid and helped us thin it out, and the noise is way down. We finally get our nights back. Mahalo!",
+    name: 'Tom & Lisa P.',
+    town: 'Captain Cook, HI',
+  },
+];
+---
+
+<section class="section">
+  <div class="container">
+    <div class="section-head center">
+      <h2>What Local Homeowners Say</h2>
+      <p class="lead muted">
+        Rated {SITE.ratingValue} from {SITE.reviewCount} reviews across {SITE.region}.
+      </p>
+    </div>
+    <div class="testimonials">
+      {
+        REVIEWS.map((r) => (
+          <blockquote class="card testimonial">
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <p>“{r.quote}”</p>
+            <div class="who">
+              {r.name}
+              <small>{r.town}</small>
+            </div>
+          </blockquote>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonial {
+    margin: 0;
+  }
+  .testimonial p {
+    font-size: 1.02rem;
+  }
+</style>

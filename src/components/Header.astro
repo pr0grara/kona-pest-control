@@ -1,0 +1,152 @@
+---
+/**
+ * Header.astro — period-correct (c. 2000s) banner: scrolling marquee, logo block +
+ * big phone box, and a row of glossy gel nav tabs. Reads SITE + SERVICES.
+ */
+import { SITE, tel } from '@config/site';
+import { SERVICES } from '@config/services';
+import { serviceUrl } from '../lib/urls';
+---
+
+<!-- scrolling announcement bar (yes, a <marquee> — it's the look) -->
+<div class="marquee-bar">
+  <marquee scrollamount="5" behavior="scroll" direction="left">
+    ★ NOW SERVING ALL OF WEST HAWAII! ★ Ask about our COQUI FROG treatment! ★ LITTLE FIRE ANTS? We can help! ★
+    Call {SITE.phoneDisplay} today for a FREE estimate! ★ Locally owned &amp; operated! ★
+  </marquee>
+</div>
+
+<header class="site-header">
+  <div class="container bar">
+    <a href="/" class="brand" aria-label={`${SITE.company} home`}>
+      <span class="brand-mark" aria-hidden="true">🐜</span>
+      <span class="brand-text">
+        <strong>{SITE.company}</strong>
+        <small>{SITE.tagline}</small>
+      </span>
+    </a>
+
+    <div class="phonebox">
+      <div class="pb-top">☎ CALL TODAY!</div>
+      <a class="pb-num" href={tel()}>{SITE.phoneDisplay}</a>
+      <div class="pb-sub">FREE Estimates • Licensed &amp; Insured</div>
+    </div>
+  </div>
+
+  <nav class="navtabs" aria-label="Main navigation">
+    <a href="/">Home</a>
+    {SERVICES.map((s) => <a href={serviceUrl(s)}>{s.short}</a>)}
+    <a href="/service-area/kailua-kona/">Service Area</a>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    background: #ffffff;
+    border-bottom: 3px solid #0a4a1f;
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #14622a;
+  }
+  .brand-mark {
+    width: 46px;
+    height: 46px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    background: #2e8b2e;
+    background-image: linear-gradient(to bottom, #5fbf5f, #1f6b1f);
+    border: 2px solid #0a4a1f;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+  .brand-text strong {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    line-height: 1.05;
+    color: #14622a;
+    text-shadow: 1px 1px 0 #cfe6cf;
+  }
+  .brand-text small {
+    display: block;
+    /* the cheesy tagline — Comic Sans, because of course */
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    color: #b22222;
+    font-size: 12px;
+  }
+
+  .phonebox {
+    text-align: center;
+    border: 2px solid #cc0000;
+    background: #fff800;
+    padding: 4px 12px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
+  }
+  .pb-top {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 11px;
+    color: #b22222;
+    letter-spacing: 0.5px;
+  }
+  .pb-num {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    color: #14622a;
+    text-decoration: none;
+    line-height: 1.1;
+  }
+  .pb-num:hover { color: #cc0000; }
+  .pb-sub { font-size: 10px; color: #555; }
+
+  /* gel nav tabs */
+  .navtabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    padding: 0 6px;
+    background: #0a4a1f;
+    background-image: linear-gradient(to bottom, #14622a, #0a4a1f);
+  }
+  .navtabs a {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    border-right: 1px solid rgba(0, 0, 0, 0.25);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+  }
+  .navtabs a:visited { color: #ffffff; }
+  .navtabs a:hover {
+    color: #fff800;
+    background: #2e8b2e;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.35), rgba(0,0,0,0.15));
+  }
+
+  @media (max-width: 560px) {
+    .bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .navtabs a { padding: 8px 10px; }
+  }
+</style>

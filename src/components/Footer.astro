@@ -1,0 +1,153 @@
+---
+/**
+ * Footer.astro — period-correct (c. 2000s) footer: link columns, a fake hit
+ * counter, "Best viewed in 1024x768", and badges. Reads config.
+ */
+import { SITE, tel } from '@config/site';
+import { SERVICES } from '@config/services';
+import { CITIES } from '@config/cities';
+import { serviceUrl, cityUrl } from '../lib/urls';
+
+const year = new Date().getFullYear();
+const footerCities = CITIES.slice(0, 8);
+// purely-decorative "hit counter" (deterministic — no Math.random at build)
+const visitors = '00248571';
+// obfuscated email, 2000s-style
+const emailUser = SITE.email.split('@')[0];
+const emailDomain = SITE.email.split('@')[1];
+---
+
+<footer class="site-footer">
+  <div class="container foot-grid">
+    <div class="foot-col foot-brand">
+      <strong>{SITE.company}</strong>
+      <p>{SITE.tagline}</p>
+      <p>
+        Email: {emailUser}<i>@</i>{emailDomain}<br />
+        Phone: <a href={tel()}>{SITE.phoneDisplay}</a>
+      </p>
+      <a class="btn btn-call btn-sm" href={tel()}>☎ Call Now</a>
+    </div>
+
+    <div class="foot-col">
+      <h4>Our Services</h4>
+      <ul>
+        {SERVICES.map((s) => (
+          <li>» <a href={serviceUrl(s)}>{s.short}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="foot-col">
+      <h4>Service Area</h4>
+      <ul>
+        {footerCities.map((c) => (
+          <li>» <a href={cityUrl(c)}>{c.name}{c.state ? `, ${c.state}` : ''}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="foot-col">
+      <h4>Information</h4>
+      <ul>
+        <li>» <a href="/">Home</a></li>
+        <li>» <a href="/service-area/kailua-kona/">Service Area</a></li>
+        <li>» <a href="/privacy/">Privacy Policy</a></li>
+        <li>» <a href="/terms/">Terms of Service</a></li>
+      </ul>
+      <div class="badges">
+        <span class="badge-pill">Licensed &amp; Insured</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container foot-bottom">
+    <div class="counter">
+      You are visitor number:
+      <span class="counter-digits">{visitors.split('').map((d) => <span>{d}</span>)}</span>
+    </div>
+    <p class="copy">
+      Copyright © 2006 {year} {SITE.company}. All Rights Reserved.<br />
+      Licensed &amp; insured pest control serving {SITE.region}.
+    </p>
+    <p class="bestviewed">
+      ✦ Best viewed in 1024×768 with Internet Explorer 6.0 or Netscape ✦<br />
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: #0a4a1f;
+    background-image: linear-gradient(to bottom, #14622a, #073a18);
+    color: #d9ead9;
+    border-top: 3px solid #fff800;
+    padding: 18px 0 14px;
+    font-size: 12px;
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+    gap: 22px;
+  }
+  .site-footer h4 {
+    color: #fff800;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    margin: 0 0 8px;
+    border-bottom: 1px dotted #5a8a5a;
+    padding-bottom: 3px;
+  }
+  .foot-brand strong {
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .foot-brand p { margin: 0 0 8px; }
+  .foot-brand .btn { margin-top: 4px; }
+  .site-footer ul { list-style: none; padding: 0; margin: 0; }
+  .site-footer li { margin-bottom: 4px; }
+  .site-footer a { color: #bfe0bf; }
+  .site-footer a:visited { color: #bfe0bf; }
+  .site-footer a:hover { color: #fff800; }
+
+  .badges { margin-top: 10px; }
+  .badge-pill {
+    display: inline-block;
+    background: #e8e8e8;
+    color: #333;
+    border: 2px outset #cccccc;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    margin: 0 4px 4px 0;
+  }
+
+  .foot-bottom {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dotted #5a8a5a;
+    text-align: center;
+  }
+  .counter { margin-bottom: 8px; font-size: 11px; }
+  .counter-digits { display: inline-flex; gap: 1px; vertical-align: middle; margin-left: 4px; }
+  .counter-digits span {
+    background: #000;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    padding: 1px 4px;
+    border: 1px solid #00aa00;
+  }
+  .copy { margin: 0 0 6px; color: #c7dcc7; }
+  .bestviewed { margin: 0; font-size: 10px; color: #9cc09c; font-style: italic; }
+
+  @media (max-width: 760px) {
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .foot-grid { grid-template-columns: 1fr; }
+  }
+</style>

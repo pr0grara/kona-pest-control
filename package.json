@@ -1,0 +1,20 @@
+{
+  "name": "kona-pest-control",
+  "description": "Lead-gen site for Kona Coast Pest Control — pest control in West Hawaii (Big Island). Intentionally styled like a c. 2000s website.",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=18.20.8"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "deploy": "astro build && npx wrangler deploy"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^5.0.0"
+  }
+}
