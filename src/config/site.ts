@@ -53,8 +53,8 @@ export const SITE: SiteConfig = {
   company: 'Kona Pest Pros',
   tagline: "Something bugging you? Call Today!",
   trade: 'pest control',
-  phone: '+18085550100', // PLACEHOLDER — replace with real dialable number
-  phoneDisplay: '(808) 555-0100', // PLACEHOLDER
+  phone: '+18084931952',
+  phoneDisplay: '(808) 493-1952',
   email: 'aloha@konapestpros.com',
   region: 'West Hawaii',
   url: 'https://konapestpros.com', // keep in sync with astro.config.mjs
