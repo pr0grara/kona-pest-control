@@ -60,8 +60,8 @@ export const SITE: SiteConfig = {
   url: 'https://konapestpros.com', // keep in sync with astro.config.mjs
   // Call-only for now: empty endpoint disables form submission and shows "call us instead".
   // To go live with a Cloudflare Worker later, set formEndpoint to the Worker URL.
-  formEndpoint: '',
-  formAccessKey: '',
+  formEndpoint: 'https://api.web3forms.com/submit',
+  formAccessKey: 'e3cc242b-9bf1-4322-af8a-6f64a8e780ac',
   mapEmbedSrc: '',
   priceRange: '$$',
   ratingValue: '4.8',
