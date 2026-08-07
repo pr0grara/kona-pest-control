@@ -193,6 +193,12 @@ ul { margin: 0 0 0.9em; padding-left: 1.4em; }
   font-size: 30px;
   margin-bottom: 8px;
 }
+.hero h1 .h1-sub {
+  display: block;
+  color: #ffffff;
+  font-size: 20px;
+  margin-top: 4px;
+}
 .hero p, .hero-single p {
   color: #ffffff;
   font-size: 15px;
