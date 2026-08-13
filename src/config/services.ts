@@ -91,7 +91,7 @@ export const SERVICES: Service[] = [
     short: 'Ant Control',
     blurb: 'Stop trailing ants — and stinging little fire ants — before they take over.',
     description:
-      "Ants are the #1 call we get on the Kona side, and not all ants are equal. Common household ants trail across counters and into pet food, but the one that really matters here is the little fire ant (LFA) — a tiny, slow-moving, pale-orange invader whose sting leaves painful welts and that can blind pets and overrun a yard. LFA has spread across the Big Island and needs a specific, persistent baiting approach, not a quick spray. We identify which ant you have and treat it the right way.",
+      "Ants are the #1 call we get on the Kona side, and not all ants are equal. Common household ants trail across counters and into pet food, but the one that really matters here is the little fire ant (LFA) — a tiny, slow-moving, pale-orange invader whose sting leaves painful welts and that can blind pets and overrun a yard. LFA has spread across the Big Island and needs a specific, persistent baiting approach, not a quick spray. We identify which ant you have and treat it the right way — from everyday ant removal to a full little fire ant extermination plan, handled by a local exterminator who knows LFA.",
     sections: [
       {
         h: 'Little fire ants need the right approach',
@@ -104,6 +104,7 @@ export const SERVICES: Service[] = [
     ],
     points: [
       'Free identification — little fire ant vs. household ant',
+      'Household ant removal and fire ant extermination',
       'Hawaii-protocol LFA baiting (gel + granular, repeated)',
       'Non-repellent treatments that reach the whole colony',
       'Trail and entry-point treatment and exclusion tips',
@@ -132,7 +133,7 @@ export const SERVICES: Service[] = [
     short: 'Roach Control',
     blurb: 'From flying B-52 roaches to German roaches in the kitchen — we clear them out.',
     description:
-      "Hawaii has roaches the rest of the country only has nightmares about. The big American cockroaches — the 'B-52s' that fly toward you on the lanai at night — breed in catchment tanks, drains, green waste, and rock walls, while German cockroaches infest kitchens and multiply fast. We treat the source, not just the ones you see, with targeted baits, crack-and-crevice treatment, and advice on the moisture and harborage that draw them in.",
+      "Hawaii has roaches the rest of the country only has nightmares about. The big American cockroaches — the 'B-52s' that fly toward you on the lanai at night — breed in catchment tanks, drains, green waste, and rock walls, while German cockroaches infest kitchens and multiply fast. As your local roach exterminator, we handle both cockroach treatment and removal at the source, not just the ones you see — targeted baits, crack-and-crevice extermination, and advice on the moisture and harborage that draw them in.",
     sections: [
       {
         h: 'Big roaches vs. little roaches',
@@ -145,6 +146,7 @@ export const SERVICES: Service[] = [
     ],
     points: [
       'American ("B-52") and German cockroach control',
+      'Same-week roach removal and extermination for active infestations',
       'Targeted gel baiting and crack-and-crevice treatment',
       'Catchment tank, drain, and outdoor harborage treatment',
       'Entry sealing and moisture/sanitation guidance',
