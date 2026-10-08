@@ -5,9 +5,10 @@ import FaqSection from '@components/FaqSection.astro';
 import CityLinks from '@components/CityLinks.astro';
 import FinalCta from '@components/FinalCta.astro';
 import { SERVICES, type Service } from '@config/services';
+import { CITIES } from '@config/cities';
 import { SITE, tel } from '@config/site';
 import { getHeroUrl } from '../../lib/images';
-import { serviceUrl } from '../../lib/urls';
+import { serviceUrl, cityUrl } from '../../lib/urls';
 import { breadcrumb, serviceSchema, faqPage } from '../../lib/schema';
 
 export function getStaticPaths() {
@@ -20,6 +21,8 @@ interface Props {
 const { service } = Astro.props;
 
 const heroUrl = await getHeroUrl(service.image);
+// Home-base city (first in CITIES): one contextual "pest control in {city}" link per service hub.
+const homeCity = CITIES[0];
 
 const title = `${service.name} in ${SITE.region} | ${SITE.company}`;
 const description = `${service.blurb} ${SITE.company} — licensed ${SITE.trade} across ${SITE.region}. Call ${SITE.phoneDisplay}.`;
@@ -70,6 +73,13 @@ if (faqLd) jsonLd.push(faqLd);
         <ul class="checklist">
           {service.points.map((p) => <li>{p}</li>)}
         </ul>
+
+        {homeCity && (
+          <p>
+            Looking for local details? See <a href={cityUrl(homeCity)}>pest control in {homeCity.name}</a>,
+            or pick your town below.
+          </p>
+        )}
       </div>
       <QuoteForm source={`service-${service.slug}`} heading={`Get Help With ${service.short}`} />
     </div>

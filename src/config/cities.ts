@@ -27,6 +27,11 @@ export interface City {
   faqs: Faq[]; // Faq reused from services.ts
   /** Optional per-city hero background; falls back to the site default. */
   heroImage?: ImageMetadata;
+  /**
+   * Optional deeper sections for a priority city (rendered under the intro). Added 2026-10-08 for
+   * Kailua-Kona, the money term "pest control kailua-kona" (see analytics DFS-INSIGHTS-2026-10.md).
+   */
+  more?: CityIssue[];
   /** Optional per-city service-photo overrides, keyed by service slug. */
   serviceImages?: Partial<Record<string, ImageMetadata>>;
 }
@@ -55,6 +60,20 @@ export const CITIES: City[] = [
       },
     ],
     nearby: ['holualoa', 'kealakekua', 'waikoloa'],
+    more: [
+      {
+        title: 'Pest control in Kailua-Kona, season by season',
+        body: "Kona runs on a different calendar than the rest of the islands. The leeward side gets its rain on summer afternoons instead of in winter, so ant and roach activity builds from late spring into fall, when warm nights and damp mornings line up. Termite swarms follow the same warm months. Winter is drier and a little quieter along the coast, which makes it a good window for perimeter work and sealing up entry points before the next season starts.",
+      },
+      {
+        title: 'Termites in Kailua-Kona homes',
+        body: 'Two kinds do the damage here. Drywood termites live inside the wood itself, in furniture, window frames, and attic framing, and the usual sign is a small pile of pellets. Subterranean termites, including the Formosan termite, build mud tubes up from the soil and can move through a structure fast. A drywood colony spread through a whole building is usually handled with tent fumigation, which means leaving the house for a few days. Localized drywood damage and most subterranean problems can be handled with spot treatments, soil treatments, or bait stations. An inspection tells you which one you have before anyone talks about a tent.',
+      },
+      {
+        title: 'Getting ready for a pest visit in Kailua-Kona',
+        body: "A few things make the first visit faster. Note where you see activity and what time of day. Keep any pellets, wings, or dead insects in a sealed bag. Mention if the property is a vacation rental or runs on catchment water, since that changes what goes where. In a condo, check whether the association already has a building program so the treatment works with it instead of against it.",
+      },
+    ],
     faqs: [
       {
         q: 'Do you treat vacation rentals and condos in Kona?',
@@ -67,6 +86,18 @@ export const CITIES: City[] = [
       {
         q: 'How fast can you come out?',
         a: 'Kailua-Kona is our home base, so we can usually get to you quickly. Call and we will give you a real window — and if something gets through between recurring visits, the re-treat is free.',
+      },
+      {
+        q: 'When is termite swarm season in Kona?',
+        a: 'In the warm, humid months. Formosan subterranean termites usually fly on still evenings around May and June, often around porch lights, and drywood termites swarm through the summer. Finding wings on a windowsill is a good reason to book an inspection.',
+      },
+      {
+        q: 'Can you treat a Kailua-Kona home that runs on catchment water?',
+        a: 'Yes. Treatments stay away from the tank, the gutters, and the roof area that feeds it, and the products are picked with the water supply in mind. Just tell us you are on catchment when you call.',
+      },
+      {
+        q: 'How much does pest control cost in Kailua-Kona?',
+        a: 'It depends on the pest, the size of the property, and whether you want a one-time treatment or recurring service. Termite work is priced after an inspection. Call for a free estimate and you will get a real number for your place.',
       },
     ],
   },

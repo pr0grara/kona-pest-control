@@ -65,6 +65,13 @@ if (faqLd) jsonLd.push(faqLd);
         <h2>Your {city.name} Pest Control Specialists</h2>
         <p class="lead">{city.intro}</p>
 
+        {city.more?.map((m) => (
+          <>
+            <h3>{m.title}</h3>
+            <p>{m.body}</p>
+          </>
+        ))}
+
         {
           city.landmarks.length > 0 && (
             <>
